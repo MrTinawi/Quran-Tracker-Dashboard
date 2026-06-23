@@ -809,6 +809,16 @@
       "rabt_pages": 0.5,
       "points": 50,
       "notes": "سورة البلد ربط"
+    },
+    {
+      "id": 77,
+      "student_id": 5,
+      "session_id": 4,
+      "hifdh_pages": 0,
+      "tilawah_pages": 0,
+      "rabt_pages": 0.5,
+      "points": 50,
+      "notes": "ربط سورة الأعلى"
     }
   ],
   "cards": [],
