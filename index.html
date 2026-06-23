@@ -1131,30 +1131,23 @@ function updateChart(data) {
   }
 }
 
-async function fetchData() {
-  try {
-    const [leaderboardRes, historyRes] = await Promise.all([
-      fetch('/api/leaderboard'),
-      fetch('/api/pages-history'),
-    ]);
-    const leaderboard = await leaderboardRes.json();
-    const history = await historyRes.json();
+const EMBEDDED_DATA = {"leaderboard":[{"team_name":"تاج النور","total_points":1445,"total_hifdh":6.75,"total_tilawah":0,"total_rabt":14.5},{"team_name":"قيادة العمليات العسكرية","total_points":665,"total_hifdh":5.5,"total_tilawah":0,"total_rabt":2.75},{"team_name":"نجوم ال MMS","total_points":530,"total_hifdh":3.5,"total_tilawah":1.25,"total_rabt":2}],"history":[{"session_id":1,"date":"14/6/2026","label":"الموعد 1","team_name":"تاج النور","session_points":245,"session_hifdh":2.75,"cumulative_hifdh":2.75,"cumulative_points":245},{"session_id":1,"date":"14/6/2026","label":"الموعد 1","team_name":"قيادة العمليات العسكرية","session_points":250,"session_hifdh":0.75,"cumulative_hifdh":0.75,"cumulative_points":250},{"session_id":1,"date":"14/6/2026","label":"الموعد 1","team_name":"نجوم ال MMS","session_points":250,"session_hifdh":1.25,"cumulative_hifdh":1.25,"cumulative_points":250},{"session_id":2,"date":"2026-06-16","label":"الموعد 2","team_name":"تاج النور","session_points":450,"session_hifdh":1,"cumulative_hifdh":3.75,"cumulative_points":695},{"session_id":2,"date":"2026-06-16","label":"الموعد 2","team_name":"قيادة العمليات العسكرية","session_points":225,"session_hifdh":2.75,"cumulative_hifdh":3.5,"cumulative_points":475},{"session_id":2,"date":"2026-06-16","label":"الموعد 2","team_name":"نجوم ال MMS","session_points":190,"session_hifdh":1.25,"cumulative_hifdh":2.5,"cumulative_points":440},{"session_id":3,"date":"2026-06-21","label":"الموعد 3","team_name":"تاج النور","session_points":750,"session_hifdh":3,"cumulative_hifdh":6.75,"cumulative_points":1445},{"session_id":3,"date":"2026-06-21","label":"الموعد 3","team_name":"قيادة العمليات العسكرية","session_points":190,"session_hifdh":2,"cumulative_hifdh":5.5,"cumulative_points":665},{"session_id":3,"date":"2026-06-21","label":"الموعد 3","team_name":"نجوم ال MMS","session_points":90,"session_hifdh":1,"cumulative_hifdh":3.5,"cumulative_points":530}]};
 
-    // Check for hifdh changes to trigger money rain
-    for (const team of leaderboard) {
-      const prev = prevHifdh[team.team_name] || 0;
-      const added = team.total_hifdh - prev;
-      if (added > 0 && prev > 0) {
-        triggerCelebration(team.team_name, added);
-      }
-      prevHifdh[team.team_name] = team.total_hifdh;
+function fetchData() {
+  const leaderboard = EMBEDDED_DATA.leaderboard;
+  const history = EMBEDDED_DATA.history;
+
+  for (const team of leaderboard) {
+    const prev = prevHifdh[team.team_name] || 0;
+    const added = team.total_hifdh - prev;
+    if (added > 0 && prev > 0) {
+      triggerCelebration(team.team_name, added);
     }
-
-    updateLeaderboard(leaderboard);
-    updateChart(history);
-  } catch (e) {
-    console.error('Fetch error:', e);
+    prevHifdh[team.team_name] = team.total_hifdh;
   }
+
+  updateLeaderboard(leaderboard);
+  updateChart(history);
 }
 
 fetchData();
