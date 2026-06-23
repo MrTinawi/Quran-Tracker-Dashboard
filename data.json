@@ -799,6 +799,16 @@
       "rabt_pages": 0,
       "points": 45,
       "notes": "سورة المرسلات ٢٠-٣٤"
+    },
+    {
+      "id": 76,
+      "student_id": 24,
+      "session_id": 4,
+      "hifdh_pages": 0,
+      "tilawah_pages": 0,
+      "rabt_pages": 0.5,
+      "points": 50,
+      "notes": "سورة البلد ربط"
     }
   ],
   "cards": [],
