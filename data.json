@@ -690,10 +690,10 @@
       "student_id": 20,
       "session_id": 3,
       "hifdh_pages": 0.5,
-      "tilawah_pages": 0,
+      "tilawah_pages": 1,
       "rabt_pages": 0.5,
       "points": 50,
-      "notes": "سورة البلد ربط"
+      "notes": "سورة البلد ربط\nتلاوة أول صفحة من سورة الأنعام"
     },
     {
       "id": 66,
