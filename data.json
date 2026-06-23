@@ -650,10 +650,10 @@
       "student_id": 10,
       "session_id": 3,
       "hifdh_pages": 1,
-      "tilawah_pages": 0,
+      "tilawah_pages": 1,
       "rabt_pages": 1.25,
       "points": 125,
-      "notes": "ريط سورة الفجر"
+      "notes": "ريط سورة الفجر\nتلاوة أول صفحة من سورة الأنعام"
     },
     {
       "id": 58,
