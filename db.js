@@ -15,7 +15,6 @@ async function loadData() {
 }
 
 async function saveData(data, token, repo, message) {
-  // First get the current file to obtain its SHA
   const apiBase = `https://api.github.com/repos/${repo}/contents/data.json`;
   const getRes = await fetch(apiBase, {
     headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
@@ -24,7 +23,6 @@ async function saveData(data, token, repo, message) {
   const current = await getRes.json();
   const sha = current.sha;
 
-  // Encode new content as base64
   const jsonStr = JSON.stringify(data, null, 2, 'utf-8');
   const content = btoa(String.fromCharCode(...new TextEncoder().encode(jsonStr)));
 
@@ -44,7 +42,7 @@ async function saveData(data, token, repo, message) {
   return putRes.json();
 }
 
-// ─── Queries (in-memory, same as old database.py logic) ───
+// ─── Queries ───
 
 function getStudentById(data, id) {
   return data.students.find(s => s.id === id);
@@ -70,12 +68,11 @@ function getEntry(data, studentId, sessionId) {
   return data.entries.find(e => e.student_id === studentId && e.session_id === sessionId);
 }
 
-// Team totals for a specific session
 function getSessionTeamTotals(data, sessionId) {
   const entries = getEntriesForSession(data, sessionId);
   const totals = {};
   for (const t of data.teams) {
-    totals[t.id] = { team_name: t.name, total_hifdh: 0, total_tilawah: 0, total_rabt: 0, total_points: 0 };
+    totals[t.id] = { team_name: t.name, total_hifdh: 0, total_tilawah: 0, total_rabt: 0, total_points: 0, student_count: 0 };
   }
   for (const e of entries) {
     const s = getStudentById(data, e.student_id);
@@ -87,10 +84,13 @@ function getSessionTeamTotals(data, sessionId) {
     totals[tid].total_rabt += e.rabt_pages;
     totals[tid].total_points += e.points;
   }
+  // Count students per team
+  for (const s of data.students) {
+    if (totals[s.team_id]) totals[s.team_id].student_count++;
+  }
   return Object.values(totals).sort((a, b) => b.total_points - a.total_points);
 }
 
-// Cumulative team totals across all sessions
 function getCumulativeTeamTotals(data) {
   const totals = {};
   for (const t of data.teams) {
@@ -109,7 +109,6 @@ function getCumulativeTeamTotals(data) {
   return Object.values(totals).sort((a, b) => b.total_points - a.total_points);
 }
 
-// Cumulative hifdh by session per team (for the line chart)
 function getCumulativeHistory(data) {
   const sessions = [...data.sessions].sort((a, b) => a.id - b.id);
   const teams = data.teams;
@@ -133,7 +132,6 @@ function getCumulativeHistory(data) {
     }
   }
 
-  // Compute running cumulative per team
   const cumMap = {};
   for (const h of history) {
     const key = h.team_name;
@@ -145,7 +143,6 @@ function getCumulativeHistory(data) {
   return history;
 }
 
-// Top memorizers for a session (hifdh leaderboard)
 function getTopMemorizers(data, sessionId) {
   const entries = getEntriesForSession(data, sessionId)
     .filter(e => e.hifdh_pages > 0);
@@ -165,7 +162,6 @@ function getTopMemorizers(data, sessionId) {
   return result;
 }
 
-// Next available ID for a type
 function nextId(data, type) {
   const arr = data[type];
   if (!arr || arr.length === 0) return 1;
@@ -200,4 +196,17 @@ function saveEntry(data, studentId, sessionId, hifdh, tilawah, rabt, points, not
       notes: notes
     });
   }
+}
+
+function addStudent(data, name, teamId) {
+  const team = getTeamById(data, teamId);
+  if (!team) return null;
+  const id = nextId(data, 'students');
+  data.students.push({ id, name, team_id: teamId, team_name: team.name });
+  return id;
+}
+
+function removeStudent(data, studentId) {
+  data.students = data.students.filter(s => s.id !== studentId);
+  data.entries = data.entries.filter(e => e.student_id !== studentId);
 }
