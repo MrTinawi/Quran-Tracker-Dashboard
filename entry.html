@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -13,147 +13,281 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body {
-  font-family: 'Cairo', sans-serif;
-  background: #1a1a2e;
-  color: #eaeaea;
-  min-height: 100vh;
+:root {
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-tertiary: #0f3460;
+  --accent: #e94560;
+  --accent-hover: #c73652;
+  --success: #27ae60;
+  --success-hover: #219a52;
+  --text-primary: #eaeaea;
+  --text-secondary: #ccd6f6;
+  --text-muted: #8892b0;
+  --border: #0f3460;
+  --highlight: #64ffda;
+  --danger: #e94560;
+  --sidebar-width: 320px;
+  --header-height: 60px;
 }
 
-/* Auth gate */
+body {
+  font-family: 'Cairo', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── Auth ─── */
 .auth-screen {
   display: flex; align-items: center; justify-content: center;
-  min-height: 100vh; padding: 20px;
+  min-height: 100vh; padding: 16px;
 }
 .auth-card {
-  background: #16213e; border: 1px solid #0f3460; border-radius: 16px;
-  padding: 40px; max-width: 520px; width: 100%;
+  background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 16px;
+  padding: 32px; max-width: 480px; width: 100%;
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
-.auth-card h1 { font-size: 1.6rem; margin-bottom: 8px; color: #e94560; }
-.auth-card p { color: #8892b0; margin-bottom: 24px; font-size: 0.9rem; line-height: 1.6; }
-.auth-card label { display: block; margin-bottom: 6px; font-weight: 700; color: #ccd6f6; font-size: 0.85rem; }
-.auth-card input, .auth-card select {
-  width: 100%; padding: 12px; margin-bottom: 16px; border-radius: 8px;
-  border: 1px solid #0f3460; background: #0f3460; color: #eaeaea;
-  font-family: 'Cairo', sans-serif; font-size: 0.95rem;
+.auth-card h1 { font-size: 1.4rem; margin-bottom: 8px; color: var(--accent); }
+.auth-card p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.85rem; line-height: 1.6; }
+.auth-card label { display: block; margin-bottom: 4px; font-weight: 700; color: var(--text-secondary); font-size: 0.8rem; }
+.auth-card input {
+  width: 100%; padding: 12px; margin-bottom: 14px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--bg-tertiary); color: var(--text-primary);
+  font-family: 'Cairo', sans-serif; font-size: 0.9rem;
 }
-.auth-card input:focus { outline: none; border-color: #e94560; }
+.auth-card input:focus { outline: none; border-color: var(--accent); }
 .auth-card button {
-  width: 100%; padding: 14px; background: #e94560; color: #fff;
+  width: 100%; padding: 14px; background: var(--accent); color: #fff;
   border: none; border-radius: 8px; font-family: 'Cairo', sans-serif;
   font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s;
 }
-.auth-card button:hover { background: #c73652; }
+.auth-card button:hover { background: var(--accent-hover); }
+.auth-card button:disabled { opacity: 0.6; cursor: not-allowed; }
 .auth-help {
-  margin-top: 20px; padding: 16px; background: #0f3460; border-radius: 8px;
-  font-size: 0.8rem; color: #8892b0; line-height: 1.7;
+  margin-top: 16px; padding: 14px; background: var(--bg-tertiary); border-radius: 8px;
+  font-size: 0.75rem; color: var(--text-muted); line-height: 1.7;
 }
-.auth-help code { background: #1a1a2e; padding: 2px 6px; border-radius: 4px; color: #64ffda; }
+.auth-help code { background: var(--bg-primary); padding: 2px 6px; border-radius: 4px; color: var(--highlight); }
 
-/* Toolbar */
+/* ─── Toolbar ─── */
 .toolbar {
-  background: #16213e; border-bottom: 1px solid #0f3460;
-  padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top: 0; z-index: 100;
+  background: var(--bg-secondary); border-bottom: 1px solid var(--border);
+  padding: 0 16px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100; height: var(--header-height);
 }
-.toolbar h2 { font-size: 1.1rem; color: #e94560; }
-.toolbar-actions { display: flex; gap: 10px; align-items: center; }
-.toolbar-actions span { color: #8892b0; font-size: 0.85rem; }
+.toolbar h2 { font-size: 1rem; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.toolbar-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+.toolbar-actions span { color: var(--text-muted); font-size: 0.8rem; display: none; }
+.toolbar-actions button { font-size: 0.8rem !important; padding: 6px 12px !important; }
+.hamburger {
+  display: none; background: none; border: none; color: var(--text-primary);
+  font-size: 1.5rem; cursor: pointer; padding: 8px; line-height: 1;
+}
 
-/* Layout */
-.app-layout { display: flex; min-height: calc(100vh - 57px); }
+/* ─── Layout ─── */
+.app-layout { display: flex; min-height: calc(100vh - var(--header-height)); position: relative; }
+
+/* ─── Sidebar ─── */
 .sidebar {
-  width: 320px; background: #16213e; border-left: 1px solid #0f3460;
-  padding: 20px; overflow-y: auto;
+  width: var(--sidebar-width); background: var(--bg-secondary); border-left: 1px solid var(--border);
+  padding: 16px; overflow-y: auto; flex-shrink: 0;
+  transition: transform 0.3s ease;
 }
-.main-content { flex: 1; padding: 24px; overflow-y: auto; }
-
-/* Sidebar */
-.sidebar h3 { font-size: 0.9rem; color: #8892b0; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.sidebar h3 {
+  font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;
+  text-transform: uppercase; letter-spacing: 1px;
+}
 .sidebar select, .sidebar input {
-  width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 6px;
-  border: 1px solid #0f3460; background: #0f3460; color: #eaeaea;
-  font-family: 'Cairo', sans-serif; font-size: 0.9rem;
+  width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--bg-tertiary); color: var(--text-primary);
+  font-family: 'Cairo', sans-serif; font-size: 0.85rem;
 }
-.sidebar select:focus, .sidebar input:focus { outline: none; border-color: #e94560; }
+.sidebar select:focus, .sidebar input:focus { outline: none; border-color: var(--accent); }
 .sidebar button {
-  width: 100%; padding: 10px; margin-bottom: 8px; border-radius: 6px;
-  border: none; font-family: 'Cairo', sans-serif; font-size: 0.9rem;
+  width: 100%; padding: 10px; margin-bottom: 6px; border-radius: 6px;
+  border: none; font-family: 'Cairo', sans-serif; font-size: 0.85rem;
   font-weight: 700; cursor: pointer; transition: all 0.2s;
 }
-.btn-primary { background: #e94560; color: #fff; }
-.btn-primary:hover { background: #c73652; }
-.btn-secondary { background: #0f3460; color: #ccd6f6; border: 1px solid #1a4a7a; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-secondary { background: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid #1a4a7a; }
 .btn-secondary:hover { background: #1a4a7a; }
-.btn-danger { background: transparent; color: #e94560; border: 1px solid #e94560; }
-.btn-danger:hover { background: #e94560; color: #fff; }
+.btn-danger { background: transparent; color: var(--danger); border: 1px solid var(--danger); }
+.btn-danger:hover { background: var(--danger); color: #fff; }
+.btn-sm { font-size: 0.75rem !important; padding: 6px 10px !important; width: auto !important; display: inline-flex !important; align-items: center; gap: 4px; }
 
-/* Main content */
+.sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+
+/* Student list in sidebar */
+.student-list { max-height: 240px; overflow-y: auto; margin-bottom: 10px; }
+.student-list-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 8px; border-radius: 4px; margin-bottom: 2px;
+  font-size: 0.8rem; cursor: pointer; transition: background 0.15s;
+}
+.student-list-item:hover { background: var(--bg-tertiary); }
+.student-list-item.active { background: var(--bg-tertiary); border-right: 3px solid var(--accent); }
+.student-list-item .del-btn {
+  background: none; border: none; color: var(--danger); cursor: pointer;
+  font-size: 1rem; padding: 2px 6px; border-radius: 4px; transition: background 0.15s;
+  width: auto !important; margin: 0;
+}
+.student-list-item .del-btn:hover { background: rgba(233,69,96,0.15); }
+
+/* ─── Main ─── */
+.main-content { flex: 1; padding: 20px; overflow-y: auto; max-width: 100%; }
+
 .entry-card {
-  background: #16213e; border: 1px solid #0f3460; border-radius: 12px;
-  padding: 24px; margin-bottom: 20px;
+  background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px; margin-bottom: 16px;
 }
-.entry-card h3 { color: #ccd6f6; margin-bottom: 16px; font-size: 1.1rem; }
-.entry-card .student-header { color: #e94560; font-size: 1.3rem; margin-bottom: 4px; }
-.entry-card .team-header { color: #8892b0; font-size: 0.9rem; margin-bottom: 20px; }
-.form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 16px; }
-.form-group label { display: block; margin-bottom: 4px; font-weight: 700; color: #ccd6f6; font-size: 0.85rem; }
-.form-group input, .form-group textarea {
-  width: 100%; padding: 10px; border-radius: 6px;
-  border: 1px solid #0f3460; background: #0f3460; color: #eaeaea;
-  font-family: 'Cairo', sans-serif; font-size: 0.95rem;
-}
-.form-group input:focus, .form-group textarea:focus { outline: none; border-color: #e94560; }
-.form-group textarea { resize: vertical; min-height: 80px; }
+.entry-card h3 { color: var(--text-secondary); margin-bottom: 14px; font-size: 1rem; }
 
-.save-btn {
-  padding: 14px 40px; background: #27ae60; color: #fff;
-  border: none; border-radius: 8px; font-family: 'Cairo', sans-serif;
-  font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: background 0.2s;
-  display: flex; align-items: center; gap: 8px;
+.student-header-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px; flex-wrap: wrap; gap: 8px;
 }
-.save-btn:hover { background: #219a52; }
-.save-btn:disabled { background: #555; cursor: not-allowed; }
-
-.status-bar {
-  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-  padding: 12px 24px; border-radius: 30px; font-weight: 700; font-size: 0.9rem;
-  z-index: 200; transition: all 0.3s; box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+.student-header-bar .student-info {
+  display: flex; flex-direction: column;
 }
-.status-success { background: #27ae60; color: #fff; }
-.status-error { background: #e94560; color: #fff; }
-.status-info { background: #0f3460; color: #ccd6f6; }
-
-/* History table */
-.history-table {
-  width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.85rem;
+.student-header-bar .student-name { color: var(--accent); font-size: 1.2rem; font-weight: 800; }
+.student-header-bar .student-team { color: var(--text-muted); font-size: 0.8rem; }
+.student-nav { display: flex; gap: 6px; }
+.student-nav button {
+  background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-secondary);
+  padding: 8px 14px; border-radius: 6px; font-family: 'Cairo', sans-serif;
+  font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.15s;
 }
-.history-table th {
-  background: #0f3460; color: #8892b0; padding: 10px; text-align: right;
-  font-weight: 700; font-size: 0.8rem; text-transform: uppercase;
-}
-.history-table td { padding: 10px; border-bottom: 1px solid #0f3460; }
-.history-table tr:hover td { background: rgba(233,69,96,0.05); }
-
-/* Toast */
-.toast {
-  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-  padding: 14px 28px; border-radius: 30px; font-weight: 700;
-  z-index: 300; font-size: 0.9rem; box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-  animation: toastIn 0.3s ease;
-}
-@keyframes toastIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-.toast-success { background: #27ae60; color: #fff; }
-.toast-error { background: #e94560; color: #fff; }
+.student-nav button:hover { background: #1a4a7a; border-color: var(--accent); }
+.student-nav button:disabled { opacity: 0.4; cursor: not-allowed; }
+.student-nav .nav-count { color: var(--text-muted); font-size: 0.75rem; display: flex; align-items: center; }
 
 .session-badge {
   display: inline-block; padding: 4px 12px; border-radius: 20px;
-  font-size: 0.8rem; font-weight: 700; background: #0f3460; color: #64ffda;
+  font-size: 0.75rem; font-weight: 700; background: var(--bg-tertiary); color: var(--highlight);
   margin-left: 8px;
+}
+
+.form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.form-group { min-width: 0; }
+.form-group label { display: block; margin-bottom: 4px; font-weight: 700; color: var(--text-secondary); font-size: 0.8rem; }
+.form-group input, .form-group textarea {
+  width: 100%; padding: 10px; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--bg-tertiary); color: var(--text-primary);
+  font-family: 'Cairo', sans-serif; font-size: 0.9rem;
+}
+.form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+.form-group textarea { resize: vertical; min-height: 70px; }
+
+.form-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+.save-btn {
+  padding: 12px 32px; background: var(--success); color: #fff;
+  border: none; border-radius: 8px; font-family: 'Cairo', sans-serif;
+  font-size: 1rem; font-weight: 700; cursor: pointer; transition: background 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.save-btn:hover { background: var(--success-hover); }
+.save-btn:disabled { background: #555; cursor: not-allowed; }
+
+.save-spinner {
+  display: inline-block; width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+  border-radius: 50%; animation: spin 0.6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* History table */
+.history-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.8rem; }
+.history-table th {
+  background: var(--bg-tertiary); color: var(--text-muted); padding: 8px; text-align: right;
+  font-weight: 700; font-size: 0.75rem; text-transform: uppercase;
+}
+.history-table td { padding: 8px; border-bottom: 1px solid var(--border); }
+.history-table tr:hover td { background: rgba(233,69,96,0.05); }
+
+/* Session summary */
+.session-summary-grid { display: grid; gap: 6px; }
+.session-team-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 10px; background: var(--bg-tertiary); border-radius: 6px;
+  font-size: 0.8rem;
+}
+.session-team-row .team-name { font-weight: 700; color: var(--text-secondary); }
+.session-team-row .team-stats { color: var(--text-muted); }
+.session-team-row .team-points { color: var(--highlight); font-weight: 700; }
+
+/* ─── Toast ─── */
+.toast-container {
+  position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
+  z-index: 500; display: flex; flex-direction: column; gap: 8px;
+  pointer-events: none;
+}
+.toast {
+  padding: 12px 24px; border-radius: 30px; font-weight: 700;
+  font-size: 0.85rem; box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  animation: toastIn 0.3s ease; pointer-events: auto;
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.toast-success { background: var(--success); color: #fff; }
+.toast-error { background: var(--danger); color: #fff; }
+.toast-info { background: var(--bg-tertiary); color: var(--text-secondary); }
+
+/* ─── Modal ─── */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6); z-index: 600; display: flex;
+  align-items: center; justify-content: center; padding: 16px;
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-box {
+  background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px;
+  padding: 24px; max-width: 400px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.modal-box h3 { color: var(--accent); margin-bottom: 12px; font-size: 1.1rem; }
+.modal-box p { color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem; line-height: 1.6; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-start; }
+.modal-actions button {
+  padding: 10px 24px; border-radius: 6px; border: none;
+  font-family: 'Cairo', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .toolbar h2 { font-size: 0.85rem; }
+  .main-content { padding: 12px; }
+  .sidebar { position: fixed; top: var(--header-height); right: 0; bottom: 0; z-index: 50; transform: translateX(100%); }
+  .sidebar.open { transform: translateX(0); box-shadow: -10px 0 40px rgba(0,0,0,0.5); }
+  .hamburger { display: block; }
+  .form-row { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  :root { --header-height: 52px; }
+  .auth-card { padding: 20px; }
+  .auth-card h1 { font-size: 1.1rem; }
+  .toolbar h2 { font-size: 0.75rem; max-width: 140px; }
+  .main-content { padding: 10px; }
+  .entry-card { padding: 14px; }
+  .form-row { grid-template-columns: 1fr; gap: 10px; }
+  .student-header-bar { flex-direction: column; align-items: flex-start; }
+  .student-nav button { padding: 6px 10px; font-size: 0.75rem; }
+  .sidebar { width: 280px; }
+  .student-list-item { font-size: 0.75rem; padding: 5px 6px; }
+  .history-table { font-size: 0.7rem; }
+  .history-table th, .history-table td { padding: 6px; }
+  .toast { font-size: 0.8rem; padding: 10px 16px; }
+}
+
+@media (max-width: 400px) {
+  .toolbar-actions span { display: none; }
+  .toolbar h2 { max-width: 120px; font-size: 0.7rem; }
 }
 </style>
 </head>
@@ -162,64 +296,73 @@ body {
 <!-- AUTH GATE -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-card">
-    <h1>🔐 دخول المشرف</h1>
-    <p>أدخل رمز GitHub للوصول إلى لوحة إدخال البيانات. يتم تخزين الرمز في متصفحك فقط ولا يغادر جهازك.</p>
-
+    <h1>دخول المشرف</h1>
+    <p>أدخل رمز GitHub للوصول إلى لوحة إدخال البيانات. يتم تخزين الرمز في متصفحك فقط.</p>
     <label>اسم مستخدم GitHub</label>
     <input type="text" id="githubUser" placeholder="مثال: ferastyy" dir="ltr">
-
     <label>اسم المستودع (Repository)</label>
     <input type="text" id="githubRepo" placeholder="مثال: quran-tracker" dir="ltr">
-
     <label>رمز GitHub الشخصي (Personal Access Token)</label>
     <input type="password" id="githubToken" placeholder="ghp_..." dir="ltr">
-
-    <button onclick="login()">دخول</button>
-
+    <button id="loginBtn" onclick="login()">دخول</button>
     <div class="auth-help">
       <strong>كيف تحصل على الرمز؟</strong><br>
       1. اذهب إلى <code>github.com/settings/tokens</code><br>
       2. اختر <strong>Generate new token (classic)</strong><br>
       3. امنح صلاحية <code>repo</code> فقط<br>
-      4. انسخ الرمز والصقه هنا<br>
-      <br>
-      <strong>⚠️ هام:</strong> الرمز يخزن في متصفحك فقط. لا تشاركه مع أحد.
+      4. انسخ الرمز والصقه هنا
     </div>
   </div>
 </div>
 
 <!-- MAIN APP -->
 <div id="appScreen" style="display:none;">
+  <!-- Toolbar -->
   <div class="toolbar">
-    <h2>📖 نظام تتبع الحفظ — لوحة المشرف</h2>
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">☰</button>
+    <h2>نظام تتبع الحفظ — لوحة المشرف</h2>
     <div class="toolbar-actions">
       <span id="toolbarInfo"></span>
-      <button class="btn-danger" onclick="logout()" style="width:auto;padding:8px 16px;">🚪 خروج</button>
+      <button class="btn-danger" onclick="logout()" style="border-radius:6px;">خروج</button>
     </div>
   </div>
 
   <div class="app-layout">
     <!-- Sidebar -->
-    <div class="sidebar">
-      <h3>📅 الجلسات</h3>
+    <div class="sidebar" id="sidebar">
+      <h3>الجلسات</h3>
       <select id="sessionSelect" onchange="onSessionChange()"></select>
-      <div style="display:flex;gap:6px;margin-bottom:12px;">
-        <input type="text" id="newSessionLabel" placeholder="عنوان الجلسة الجديدة" style="flex:1;margin-bottom:0;">
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <input type="text" id="newSessionLabel" placeholder="عنوان الجلسة" style="flex:1;margin-bottom:0;">
         <button onclick="addNewSession()" class="btn-secondary" style="width:auto;padding:10px 14px;margin-bottom:0;">+</button>
       </div>
 
-      <hr style="border-color:#0f3460;margin:16px 0;">
+      <hr class="sidebar-divider">
 
-      <h3>👥 الفريق</h3>
+      <h3>الفريق</h3>
       <select id="teamSelect" onchange="onTeamChange()"></select>
 
-      <h3>🧑‍🎓 الطالب</h3>
+      <h3>الطالب</h3>
       <select id="studentSelect" onchange="onStudentChange()"></select>
 
-      <hr style="border-color:#0f3460;margin:16px 0;">
+      <hr class="sidebar-divider">
 
-      <h3>📊 ملخص الجلسة</h3>
-      <div id="sessionSummary" style="font-size:0.85rem;color:#8892b0;">
+      <h3>إدارة الطلاب</h3>
+      <div style="display:flex;gap:6px;margin-bottom:6px;">
+        <input type="text" id="newStudentName" placeholder="اسم الطالب" style="flex:1;margin-bottom:0;">
+      </div>
+      <select id="newStudentTeam" style="margin-bottom:6px;"></select>
+      <button onclick="addNewStudent()" class="btn-primary" style="margin-bottom:10px;">+ إضافة طالب</button>
+
+      <div id="studentListContainer" style="margin-bottom:10px;">
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px;">الطلاب في هذا الفريق:</div>
+        <div class="student-list" id="studentList"></div>
+      </div>
+
+      <hr class="sidebar-divider">
+
+      <h3>ملخص الجلسة</h3>
+      <div id="sessionSummary" style="font-size:0.8rem;color:var(--text-muted);">
         اختر جلسة لعرض الملخص.
       </div>
     </div>
@@ -227,13 +370,14 @@ body {
     <!-- Main -->
     <div class="main-content" id="mainContent">
       <div class="entry-card">
-        <p style="color:#8892b0;">اختر جلسة وفريق وطالب من القائمة الجانبية للبدء.</p>
+        <p style="color:var(--text-muted);">اختر جلسة وفريق وطالب من القائمة الجانبية للبدء.</p>
       </div>
     </div>
   </div>
 </div>
 
-<div id="toastContainer"></div>
+<div class="toast-container" id="toastContainer"></div>
+<div id="modalContainer"></div>
 
 <script>
 // ─── State ───
@@ -241,6 +385,8 @@ let appData = null;
 let selectedSessionId = null;
 let selectedTeamId = null;
 let selectedStudentId = null;
+let selectedStudentIndex = -1;
+let teamStudents = [];
 let token = '';
 let repo = '';
 
@@ -249,18 +395,18 @@ function login() {
   const user = document.getElementById('githubUser').value.trim();
   const repoName = document.getElementById('githubRepo').value.trim();
   const tok = document.getElementById('githubToken').value.trim();
-
   if (!user || !repoName || !tok) {
     showToast('الرجاء ملء جميع الحقول', 'error');
     return;
   }
-
-  // Test the token
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true;
+  btn.textContent = 'جاري الاتصال...';
   const testUrl = `https://api.github.com/repos/${user}/${repoName}`;
   fetch(testUrl, {
     headers: { 'Authorization': `token ${tok}`, 'Accept': 'application/vnd.github.v3+json' }
   }).then(res => {
-    if (!res.ok) throw new Error('فشل الاتصال — تحقق من اسم المستخدم والمستودع والرمز');
+    if (!res.ok) throw new Error('فشل الاتصال — تحقق من البيانات');
     token = tok;
     repo = `${user}/${repoName}`;
     localStorage.setItem('quran_token', token);
@@ -271,6 +417,8 @@ function login() {
     initApp();
   }).catch(err => {
     showToast(err.message, 'error');
+    btn.disabled = false;
+    btn.textContent = 'دخول';
   });
 }
 
@@ -282,7 +430,6 @@ function logout() {
   document.getElementById('appScreen').style.display = 'none';
 }
 
-// Try auto-login from localStorage
 (function() {
   const savedToken = localStorage.getItem('quran_token');
   const savedRepo = localStorage.getItem('quran_repo');
@@ -300,6 +447,7 @@ function logout() {
 // ─── Init ───
 async function initApp() {
   try {
+    showToast('جاري تحميل البيانات...', 'info');
     const res = await fetch(`https://api.github.com/repos/${repo}/contents/data.json`, {
       headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
     });
@@ -317,23 +465,37 @@ async function initApp() {
 }
 
 function populateUI() {
-  // Populate sessions dropdown
   const ss = document.getElementById('sessionSelect');
   ss.innerHTML = '<option value="">-- اختر الجلسة --</option>';
   appData.sessions.slice().reverse().forEach(s => {
     ss.innerHTML += `<option value="${s.id}">${s.label} — ${s.date}</option>`;
   });
 
-  // Populate teams dropdown
   const ts = document.getElementById('teamSelect');
   ts.innerHTML = '<option value="">-- اختر الفريق --</option>';
   appData.teams.forEach(t => {
     ts.innerHTML += `<option value="${t.id}">${t.name}</option>`;
   });
 
-  // Reset
+  const nst = document.getElementById('newStudentTeam');
+  nst.innerHTML = '';
+  appData.teams.forEach(t => {
+    nst.innerHTML += `<option value="${t.id}">${t.name}</option>`;
+  });
+  if (selectedTeamId) nst.value = selectedTeamId;
+
   document.getElementById('studentSelect').innerHTML = '<option value="">-- اختر الطالب --</option>';
-  document.getElementById('mainContent').innerHTML = '<div class="entry-card"><p style="color:#8892b0;">اختر جلسة وفريق وطالب من القائمة الجانبية للبدء.</p></div>';
+  document.getElementById('mainContent').innerHTML = '<div class="entry-card"><p style="color:var(--text-muted);">اختر جلسة وفريق وطالب من القائمة الجانبية للبدء.</p></div>';
+  updateStudentList();
+}
+
+// ─── Sidebar Toggle ───
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
 }
 
 // ─── Session ───
@@ -348,26 +510,27 @@ function onTeamChange() {
   const val = document.getElementById('teamSelect').value;
   selectedTeamId = val ? parseInt(val) : null;
   selectedStudentId = null;
+  selectedStudentIndex = -1;
+  teamStudents = selectedTeamId ? getStudentsByTeam(appData, selectedTeamId) : [];
 
-  // Populate students
   const ss = document.getElementById('studentSelect');
   ss.innerHTML = '<option value="">-- اختر الطالب --</option>';
-  if (selectedTeamId) {
-    const students = getStudentsByTeam(appData, selectedTeamId);
-    students.forEach(s => {
-      ss.innerHTML += `<option value="${s.id}">${s.name}</option>`;
-    });
-  }
+  teamStudents.forEach(s => {
+    ss.innerHTML += `<option value="${s.id}">${s.name}</option>`;
+  });
+
+  updateStudentList();
   renderEntryForm();
 }
 
 function onStudentChange() {
   const val = document.getElementById('studentSelect').value;
   selectedStudentId = val ? parseInt(val) : null;
+  selectedStudentIndex = teamStudents.findIndex(s => s.id === selectedStudentId);
   renderEntryForm();
 }
 
-function addNewSession() {
+async function addNewSession() {
   const label = document.getElementById('newSessionLabel').value.trim();
   if (!label) { showToast('الرجاء إدخال عنوان الجلسة', 'error'); return; }
   const today = new Date().toISOString().split('T')[0];
@@ -378,15 +541,15 @@ function addNewSession() {
   selectedSessionId = id;
   updateSessionSummary();
   renderEntryForm();
-  saveToGitHub(`إضافة جلسة: ${label}`);
+  await saveToGitHub(`إضافة جلسة: ${label}`);
 }
 
 async function saveToGitHub(message) {
   try {
     await saveData(appData, token, repo, message);
-    showToast('✅ تم الحفظ بنجاح!', 'success');
   } catch (e) {
     showToast('❌ فشل الحفظ: ' + e.message, 'error');
+    throw e;
   }
 }
 
@@ -397,29 +560,140 @@ function updateSessionSummary() {
     return;
   }
   const totals = getSessionTeamTotals(appData, selectedSessionId);
-  if (totals.length === 0) {
+  if (totals.length === 0 || totals.every(t => t.total_hifdh === 0 && t.total_tilawah === 0 && t.total_rabt === 0 && t.total_points === 0)) {
     div.innerHTML = 'لا توجد بيانات لهذه الجلسة بعد.';
     return;
   }
   const session = getSessionById(appData, selectedSessionId);
-  div.innerHTML = `<strong>${session ? session.label : ''}</strong><br>` +
-    totals.map(t => `• ${t.team_name}: 💲${t.total_points} (${(t.total_hifdh + t.total_tilawah + t.total_rabt).toFixed(2)} صفحة)`).join('<br>');
+  let html = `<div style="margin-bottom:6px;color:var(--text-secondary);font-weight:700;">${session ? session.label : ''}</div>`;
+  html += '<div class="session-summary-grid">';
+  totals.forEach(t => {
+    const totalPages = (t.total_hifdh + t.total_tilawah + t.total_rabt).toFixed(2);
+    html += `<div class="session-team-row">
+      <span class="team-name">${t.team_name}</span>
+      <span class="team-stats">${totalPages} صفحة</span>
+      <span class="team-points">${t.total_points} 💲</span>
+    </div>`;
+  });
+  html += '</div>';
+  div.innerHTML = html;
+}
+
+// ─── Student Management ───
+function updateStudentList() {
+  const container = document.getElementById('studentList');
+  const teamId = selectedTeamId || (appData.teams.length > 0 ? appData.teams[0].id : null);
+  if (!teamId) {
+    container.innerHTML = '<div style="color:var(--text-muted);font-size:0.75rem;">لا توجد فرق.</div>';
+    return;
+  }
+  const students = getStudentsByTeam(appData, teamId);
+  if (students.length === 0) {
+    container.innerHTML = '<div style="color:var(--text-muted);font-size:0.75rem;">لا يوجد طلاب في هذا الفريق.</div>';
+    return;
+  }
+  container.innerHTML = students.map(s => {
+    const active = s.id === selectedStudentId ? 'active' : '';
+    return `<div class="student-list-item ${active}" onclick="selectStudentFromList(${s.id})">
+      <span>${s.name}</span>
+      <button class="del-btn" onclick="event.stopPropagation();confirmRemoveStudent(${s.id}, '${s.name.replace(/'/g, "\\'")}')">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function selectStudentFromList(id) {
+  selectedStudentId = id;
+  selectedStudentIndex = teamStudents.findIndex(s => s.id === id);
+  document.getElementById('studentSelect').value = id;
+  renderEntryForm();
+  updateStudentList();
+  if (window.innerWidth <= 900) closeSidebar();
+}
+
+async function addNewStudent() {
+  const name = document.getElementById('newStudentName').value.trim();
+  const teamId = parseInt(document.getElementById('newStudentTeam').value);
+  if (!name) { showToast('الرجاء إدخال اسم الطالب', 'error'); return; }
+  if (!teamId) { showToast('الرجاء اختيار الفريق', 'error'); return; }
+
+  const id = addStudent(appData, name, teamId);
+  document.getElementById('newStudentName').value = '';
+
+  // Refresh student list and select the new student
+  teamStudents = selectedTeamId ? getStudentsByTeam(appData, selectedTeamId) : [];
+  populateUI();
+
+  if (selectedTeamId === teamId) {
+    document.getElementById('studentSelect').value = id;
+    selectedStudentId = id;
+    selectedStudentIndex = teamStudents.findIndex(s => s.id === id);
+    renderEntryForm();
+    updateStudentList();
+  }
+
+  await saveToGitHub(`إضافة طالب: ${name}`);
+  showToast(`✅ تمت إضافة ${name} بنجاح!`, 'success');
+}
+
+function confirmRemoveStudent(id, name) {
+  const container = document.getElementById('modalContainer');
+  container.innerHTML = `
+    <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+      <div class="modal-box">
+        <h3>حذف طالب</h3>
+        <p>هل أنت متأكد من حذف الطالب <strong>${name}</strong>؟<br>سيتم حذف جميع بياناته ومدخلاته بشكل نهائي.</p>
+        <div class="modal-actions">
+          <button class="btn-danger" onclick="removeStudentConfirmed(${id})" style="color:#fff;background:var(--danger);">نعم، احذف</button>
+          <button class="btn-secondary" onclick="closeModal()" style="color:var(--text-secondary);">إلغاء</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function closeModal() {
+  document.getElementById('modalContainer').innerHTML = '';
+}
+
+async function removeStudentConfirmed(id) {
+  const student = getStudentById(appData, id);
+  if (!student) return;
+  const name = student.name;
+  removeStudent(appData, id);
+  closeModal();
+
+  if (selectedStudentId === id) {
+    selectedStudentId = null;
+    selectedStudentIndex = -1;
+  }
+
+  teamStudents = selectedTeamId ? getStudentsByTeam(appData, selectedTeamId) : [];
+  populateUI();
+  renderEntryForm();
+  updateSessionSummary();
+
+  await saveToGitHub(`حذف طالب: ${name}`);
+  showToast(`✅ تم حذف ${name}`, 'success');
 }
 
 // ─── Entry Form ───
 function renderEntryForm() {
   const mc = document.getElementById('mainContent');
   if (!selectedStudentId || !selectedSessionId) {
-    mc.innerHTML = '<div class="entry-card"><p style="color:#8892b0;">اختر جلسة وفريق وطالب من القائمة الجانبية للبدء.</p></div>';
+    mc.innerHTML = '<div class="entry-card"><p style="color:var(--text-muted);">اختر جلسة وفريق وطالب من القائمة الجانبية للبدء.</p></div>';
     return;
   }
 
   const student = getStudentById(appData, selectedStudentId);
+  if (!student) {
+    mc.innerHTML = '<div class="entry-card"><p style="color:var(--text-muted);">الطالب غير موجود.</p></div>';
+    return;
+  }
+
   const team = getTeamById(appData, student.team_id);
   const session = getSessionById(appData, selectedSessionId);
   const entry = getEntry(appData, selectedStudentId, selectedSessionId);
 
-  // Get history
+  // History
   const history = appData.entries
     .filter(e => e.student_id === selectedStudentId)
     .map(e => {
@@ -437,47 +711,74 @@ function renderEntryForm() {
     </tr>`;
   });
 
+  // Navigation
+  const prevIdx = selectedStudentIndex > 0 ? selectedStudentIndex - 1 : -1;
+  const nextIdx = selectedStudentIndex < teamStudents.length - 1 ? selectedStudentIndex + 1 : -1;
+  const prevStudent = prevIdx >= 0 ? teamStudents[prevIdx] : null;
+  const nextStudent = nextIdx >= 0 ? teamStudents[nextIdx] : null;
+
   mc.innerHTML = `
     <div class="entry-card">
-      <div class="student-header">${student.name}</div>
-      <div class="team-header">فريق ${team.name} <span class="session-badge">${session ? session.label + ' — ' + session.date : ''}</span></div>
+      <div class="student-header-bar">
+        <div class="student-info">
+          <div class="student-name">${student.name}</div>
+          <div class="student-team">فريق ${team ? team.name : ''} <span class="session-badge">${session ? session.label + ' — ' + session.date : ''}</span></div>
+        </div>
+        <div class="student-nav">
+          <span class="nav-count">${selectedStudentIndex + 1} / ${teamStudents.length}</span>
+          <button ${!prevStudent ? 'disabled' : ''} onclick="navigateToStudent(${prevIdx})">▲ السابق</button>
+          <button ${!nextStudent ? 'disabled' : ''} onclick="navigateToStudent(${nextIdx})">التالي ▼</button>
+        </div>
+      </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label>📖 حفظ (صفحات)</label>
+          <label>حفظ (صفحات)</label>
           <input type="number" id="inpHifdh" value="${entry ? entry.hifdh_pages : 0}" min="0" step="0.25">
         </div>
         <div class="form-group">
-          <label>📖 تلاوة (صفحات)</label>
+          <label>تلاوة (صفحات)</label>
           <input type="number" id="inpTilawah" value="${entry ? entry.tilawah_pages : 0}" min="0" step="0.25">
         </div>
         <div class="form-group">
-          <label>📖 ربط (صفحات)</label>
+          <label>ربط (صفحات)</label>
           <input type="number" id="inpRabt" value="${entry ? entry.rabt_pages : 0}" min="0" step="0.25">
         </div>
         <div class="form-group">
-          <label>💲 النقاط</label>
+          <label>النقاط</label>
           <input type="number" id="inpPoints" value="${entry ? entry.points : 0}" min="0" step="5">
         </div>
       </div>
 
-      <div class="form-group" style="margin-bottom:16px;">
-        <label>📝 ملاحظات</label>
+      <div class="form-group" style="margin-bottom:14px;">
+        <label>ملاحظات</label>
         <textarea id="inpNotes">${entry && entry.notes ? entry.notes : ''}</textarea>
       </div>
 
-      <button class="save-btn" onclick="saveCurrentEntry()">💾 حفظ البيانات</button>
+      <div class="form-actions">
+        <button class="save-btn" id="saveBtn" onclick="saveCurrentEntry()">💾 حفظ البيانات</button>
+      </div>
     </div>
 
     <div class="entry-card">
-      <h3>📋 سجل الطالب</h3>
+      <h3>سجل الطالب</h3>
       ${history.length > 0 ? `
         <table class="history-table">
           <tr><th>التاريخ</th><th>الجلسة</th><th>حفظ</th><th>تلاوة</th><th>ربط</th><th>نقاط</th></tr>
           ${historyRows}
-        </table>` : '<p style="color:#8892b0;">لا يوجد سجل لهذا الطالب بعد.</p>'}
+        </table>` : '<p style="color:var(--text-muted);">لا يوجد سجل لهذا الطالب بعد.</p>'}
     </div>
   `;
+}
+
+function navigateToStudent(index) {
+  if (index < 0 || index >= teamStudents.length) return;
+  const student = teamStudents[index];
+  selectedStudentId = student.id;
+  selectedStudentIndex = index;
+  document.getElementById('studentSelect').value = student.id;
+  renderEntryForm();
+  updateStudentList();
 }
 
 async function saveCurrentEntry() {
@@ -487,13 +788,23 @@ async function saveCurrentEntry() {
   const points = parseInt(document.getElementById('inpPoints').value) || 0;
   const notes = document.getElementById('inpNotes').value;
 
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="save-spinner"></span> جاري الحفظ...';
+
   saveEntry(appData, selectedStudentId, selectedSessionId, hifdh, tilawah, rabt, points, notes);
 
   const student = getStudentById(appData, selectedStudentId);
-  await saveToGitHub(`تحديث: ${student.name} — حفظ=${hifdh} تلاوة=${tilawah} ربط=${rabt} نقاط=${points}`);
 
-  updateSessionSummary();
-  renderEntryForm();
+  try {
+    await saveToGitHub(`تحديث: ${student.name} — حفظ=${hifdh} تلاوة=${tilawah} ربط=${rabt} نقاط=${points}`);
+    showToast(`✅ تم حفظ بيانات ${student.name} بنجاح!`, 'success');
+    updateSessionSummary();
+    renderEntryForm();
+  } catch (e) {
+    btn.disabled = false;
+    btn.innerHTML = '💾 حفظ البيانات';
+  }
 }
 
 // ─── Toast ───
@@ -503,7 +814,7 @@ function showToast(msg, type) {
   el.className = `toast toast-${type}`;
   el.textContent = msg;
   container.appendChild(el);
-  setTimeout(() => el.remove(), 3500);
+  setTimeout(() => el.remove(), 3000);
 }
 </script>
 </body>
