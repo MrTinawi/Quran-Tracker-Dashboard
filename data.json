@@ -1020,6 +1020,16 @@
       "rabt_pages": 1,
       "points": 100,
       "notes": "ربط سورة عبس"
+    },
+    {
+      "id": 97,
+      "student_id": 10,
+      "session_id": 5,
+      "hifdh_pages": 0.5,
+      "tilawah_pages": 0,
+      "rabt_pages": 0,
+      "points": 45,
+      "notes": "سورة الأعلى حفظ"
     }
   ],
   "cards": [],
