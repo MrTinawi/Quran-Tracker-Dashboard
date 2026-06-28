@@ -970,6 +970,16 @@
       "rabt_pages": 0,
       "points": 0,
       "notes": ""
+    },
+    {
+      "id": 92,
+      "student_id": 5,
+      "session_id": 5,
+      "hifdh_pages": 0.5,
+      "tilawah_pages": 0,
+      "rabt_pages": 0,
+      "points": 45,
+      "notes": "حفظ سورة الطارق"
     }
   ],
   "cards": [],
