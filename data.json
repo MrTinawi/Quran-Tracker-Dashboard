@@ -826,10 +826,10 @@
       "student_id": 5,
       "session_id": 4,
       "hifdh_pages": 0,
-      "tilawah_pages": 0,
+      "tilawah_pages": 0.5,
       "rabt_pages": 0.5,
       "points": 50,
-      "notes": "ربط سورة الأعلى"
+      "notes": "ربط سورة الأعلى\nتلاوة سورة الأنعام الصفحة الثانية أول نصف"
     },
     {
       "id": 78,
