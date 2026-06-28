@@ -965,11 +965,11 @@
       "id": 91,
       "student_id": 7,
       "session_id": 5,
-      "hifdh_pages": 0.5,
+      "hifdh_pages": 0,
       "tilawah_pages": 0,
       "rabt_pages": 0,
-      "points": 45,
-      "notes": "حفظ سورة الطارق"
+      "points": 0,
+      "notes": ""
     }
   ],
   "cards": [],
