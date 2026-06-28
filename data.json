@@ -1040,6 +1040,16 @@
       "rabt_pages": 1.5,
       "points": 150,
       "notes": "ربط سورة المرسلات"
+    },
+    {
+      "id": 99,
+      "student_id": 12,
+      "session_id": 5,
+      "hifdh_pages": 0,
+      "tilawah_pages": 0,
+      "rabt_pages": 1,
+      "points": 100,
+      "notes": "سورة البروج ربط"
     }
   ],
   "cards": [],
