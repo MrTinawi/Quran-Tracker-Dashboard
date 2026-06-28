@@ -1010,6 +1010,16 @@
       "rabt_pages": 0,
       "points": 45,
       "notes": "سورة التغابن 6-9"
+    },
+    {
+      "id": 96,
+      "student_id": 14,
+      "session_id": 5,
+      "hifdh_pages": 0,
+      "tilawah_pages": 0,
+      "rabt_pages": 1,
+      "points": 100,
+      "notes": "ربط سورة عبس"
     }
   ],
   "cards": [],
