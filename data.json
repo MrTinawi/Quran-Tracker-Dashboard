@@ -900,6 +900,16 @@
       "rabt_pages": 2.5,
       "points": 240,
       "notes": "ربط سورة الملك"
+    },
+    {
+      "id": 85,
+      "student_id": 22,
+      "session_id": 5,
+      "hifdh_pages": 0,
+      "tilawah_pages": 0,
+      "rabt_pages": 2.5,
+      "points": 250,
+      "notes": "ربط سورة الممتحنة"
     }
   ],
   "cards": [],
