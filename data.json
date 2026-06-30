@@ -1085,6 +1085,16 @@
       "rabt_pages": 0.5,
       "points": 95,
       "notes": "سورة الطارق حفظ وربط"
+    },
+    {
+      "id": 103,
+      "student_id": 9,
+      "session_id": 6,
+      "hifdh_pages": 0.5,
+      "tilawah_pages": 0,
+      "rabt_pages": 0,
+      "points": 45,
+      "notes": "سورة التغابن من 10-14"
     }
   ],
   "cards": [],
