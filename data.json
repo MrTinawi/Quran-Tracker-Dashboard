@@ -181,6 +181,12 @@
       "name": "فارس حلاق",
       "team_id": 1,
       "team_name": "نجوم ال MMS"
+    },
+    {
+      "id": 29,
+      "name": "هادي",
+      "team_id": 2,
+      "team_name": "تاج النور"
     }
   ],
   "sessions": [
