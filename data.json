@@ -1075,6 +1075,16 @@
       "rabt_pages": 0,
       "points": 0,
       "notes": "تلاوة سورة الأنعام من 16-29"
+    },
+    {
+      "id": 102,
+      "student_id": 11,
+      "session_id": 6,
+      "hifdh_pages": 0.5,
+      "tilawah_pages": 0,
+      "rabt_pages": 0.5,
+      "points": 95,
+      "notes": "سورة الطارق حفظ وربط"
     }
   ],
   "cards": [],
