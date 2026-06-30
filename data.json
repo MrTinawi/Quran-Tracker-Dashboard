@@ -1151,6 +1151,16 @@
       "rabt_pages": 0,
       "points": 90,
       "notes": "سورة الفجر حفظ"
+    },
+    {
+      "id": 109,
+      "student_id": 14,
+      "session_id": 6,
+      "hifdh_pages": 0,
+      "tilawah_pages": 0,
+      "rabt_pages": 1.5,
+      "points": 300,
+      "notes": "سورة النبأ ربط عرض الدبل"
     }
   ],
   "cards": [],
